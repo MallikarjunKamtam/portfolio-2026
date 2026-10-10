@@ -1,0 +1,108 @@
+/* Boot sequence, konami overlay, key pulse, misc one-off effects. */
+
+/* ---------- boot splash ---------- */
+
+.boot {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: grid;
+  place-content: center;
+  gap: 1rem;
+  padding: 2rem;
+  background: var(--bg-deep);
+  font: 400 0.8rem/1.9 var(--mono);
+  color: var(--acid);
+  animation: bootOut 0.7s var(--ease) 1.5s forwards;
+}
+.boot .bar {
+  width: min(320px, 70vw);
+  height: 3px;
+  background: rgba(0, 255, 156, 0.15);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.boot .bar i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--acid), var(--acid-2));
+  box-shadow: 0 0 14px var(--acid);
+  animation: load 1.5s var(--ease) forwards;
+}
+.boot small {
+  color: var(--ink-faint);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 0.62rem;
+}
+
+@keyframes load {
+  to {
+    width: 100%;
+  }
+}
+@keyframes bootOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.06);
+  }
+}
+
+/* ---------- konami easter egg ---------- */
+
+.egg {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: var(--overlay);
+  backdrop-filter: blur(10px);
+  animation: fadeIn 0.3s var(--ease);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+}
+
+.egg .term {
+  width: min(580px, 100%);
+  animation: riseIn 0.5s var(--ease) both;
+}
+.egg pre {
+  color: var(--acid);
+}
+.egg .close {
+  display: block;
+  margin: 1rem auto 0;
+  font: 600 0.7rem/1 var(--mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.egg .close:hover {
+  color: var(--acid);
+}
+
+/* ---------- every keypress nudges the page brightness ---------- */
+
+.keypulse .shell {
+  animation: pulse 0.26s var(--ease);
+}
+
+@keyframes pulse {
+  50% {
+    filter: brightness(1.08) saturate(1.12);
+  }
+}
+
+/* ---------- utility glow ---------- */
+
+.glow {
+  text-shadow: 0 0 18px currentColor;
+}

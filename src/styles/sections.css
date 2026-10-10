@@ -1,0 +1,473 @@
+/* About, stats, work grid, timeline, skills, education, contact, footer. */
+
+/* ==================================================================
+   ABOUT
+   ================================================================== */
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 2.4rem;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.prose p {
+  max-width: 64ch;
+  margin-bottom: 1.1rem;
+  color: var(--ink-dim);
+}
+.prose b {
+  color: var(--ink);
+  font-weight: 600;
+}
+.prose .acid {
+  color: var(--acid);
+}
+
+/* ---------- stats ---------- */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-top: 2.8rem;
+}
+
+.stat {
+  position: relative;
+  padding: 1.3rem 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--rad);
+  background: var(--surface);
+  overflow: hidden;
+  transition: transform 0.4s var(--ease), border-color 0.4s, box-shadow 0.4s;
+}
+.stat::before {
+  /* bar chart ghost in the corner */
+  content: '';
+  position: absolute;
+  right: -10px;
+  bottom: -10px;
+  width: 70px;
+  height: 70px;
+  background:
+    linear-gradient(var(--acid), var(--acid)) 0 100% / 8px 30% no-repeat,
+    linear-gradient(var(--acid), var(--acid)) 14px 100% / 8px 55% no-repeat,
+    linear-gradient(var(--acid), var(--acid)) 28px 100% / 8px 40% no-repeat,
+    linear-gradient(var(--acid), var(--acid)) 42px 100% / 8px 78% no-repeat;
+  opacity: 0.08;
+  transition: opacity 0.4s;
+}
+.stat:hover::before {
+  opacity: 0.2;
+}
+.stat:hover {
+  transform: translateY(-5px);
+  border-color: rgba(0, 255, 156, 0.45);
+  box-shadow: 0 20px 46px -26px rgba(0, 255, 156, 0.8);
+}
+.stat .v {
+  display: block;
+  font: 700 clamp(1.6rem, 3.4vw, 2.3rem)/1 var(--mono);
+  letter-spacing: -0.02em;
+  background: linear-gradient(120deg, var(--acid), var(--acid-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.stat .l {
+  display: block;
+  margin-top: 0.45rem;
+  font: 500 0.68rem/1 var(--mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+/* ==================================================================
+   WORK
+   ================================================================== */
+
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.1rem;
+}
+
+.work-card .no {
+  font: 700 0.7rem/1 var(--mono);
+  letter-spacing: 0.1em;
+  color: var(--acid);
+  opacity: 0.5;
+}
+.work-card h3 {
+  margin: 0.55rem 0 0.6rem;
+  font-size: 1.14rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.work-card p {
+  margin-bottom: 0.9rem;
+  color: var(--ink-dim);
+  font-size: 0.9rem;
+}
+.work-card .metric {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+  font: 500 0.7rem/1.4 var(--mono);
+  color: var(--amber);
+}
+.work-card .metric::before {
+  content: '▸';
+}
+
+/* ==================================================================
+   EXPERIENCE TIMELINE
+   ================================================================== */
+
+.timeline {
+  position: relative;
+  padding-left: 2.2rem;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 6px;
+  bottom: 6px;
+  width: 1px;
+  background: linear-gradient(var(--acid), var(--acid-2) 45%, transparent);
+  opacity: 0.45;
+}
+/* energy pulse travelling down the spine */
+.timeline::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  opacity: 0.55;
+  /* a 70px band sliding down a 5px-wide strip — repaint area is ~nothing,
+     so background-position is cheaper here than a composited layer */
+  background: linear-gradient(transparent, var(--acid), transparent) 0 0 / 5px 70px no-repeat;
+  animation: spine 5s var(--ease) infinite;
+}
+
+@keyframes spine {
+  to {
+    background-position: 0 100%;
+  }
+}
+
+.job {
+  position: relative;
+  padding-bottom: 3rem;
+}
+.job:last-child {
+  padding-bottom: 0;
+}
+.job::before {
+  content: '';
+  position: absolute;
+  left: -2.2rem;
+  top: 0.45rem;
+  width: 15px;
+  height: 15px;
+  border: 2px solid var(--acid);
+  border-radius: 50%;
+  background: var(--bg);
+}
+.job.now::before {
+  background: var(--acid);
+  box-shadow: 0 0 0 0 rgba(0, 255, 156, 0.6);
+  animation: ping 2s infinite;
+}
+
+.job-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 0.9rem;
+  margin-bottom: 0.2rem;
+}
+.job-head h3 {
+  font-size: 1.22rem;
+  font-weight: 600;
+}
+.job-head .at {
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  color: var(--acid);
+}
+.job .legal {
+  font-size: 0.74rem;
+  font-style: italic;
+  color: var(--ink-faint);
+}
+.job .when {
+  margin-bottom: 0.9rem;
+  font: 500 0.7rem/1 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.badge-now {
+  padding: 0.18rem 0.5rem;
+  font: 600 0.6rem/1.5 var(--mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--on-acid);
+  background: var(--acid);
+  border-radius: 999px;
+  box-shadow: 0 0 18px -2px rgba(0, 255, 156, 0.9);
+}
+
+.job ul {
+  margin: 0 0 1rem;
+}
+.job li {
+  position: relative;
+  padding-left: 1.3rem;
+  margin-bottom: 0.55rem;
+  font-size: 0.91rem;
+  color: var(--ink-dim);
+  transition: color 0.25s, transform 0.25s var(--ease);
+}
+.job li::before {
+  content: '▹';
+  position: absolute;
+  left: 0;
+  color: var(--acid);
+}
+.job li:hover {
+  color: var(--ink);
+  transform: translateX(3px);
+}
+
+.more {
+  margin-top: 0.3rem;
+  padding-bottom: 2px;
+  font: 600 0.7rem/1 var(--mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--acid);
+  border-bottom: 1px dashed currentColor;
+}
+.more:hover {
+  color: var(--acid-2);
+}
+
+/* ==================================================================
+   SKILLS
+   ================================================================== */
+
+.skill-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
+  gap: 1.1rem;
+}
+.skill-card h3 {
+  margin-bottom: 0.95rem;
+  font: 600 0.72rem/1 var(--mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--acid);
+}
+
+/* infinite marquee of the whole stack */
+.marquee {
+  margin-top: 2.8rem;
+  padding: 0.85rem 0;
+  overflow: hidden;
+  border-block: 1px solid var(--line);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.marquee-track {
+  display: flex;
+  gap: 2.2rem;
+  width: max-content;
+  animation: marq 42s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+.marquee span {
+  font: 500 0.78rem/1 var(--mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  white-space: nowrap;
+  transition: color 0.25s, text-shadow 0.25s;
+}
+.marquee span:hover {
+  color: var(--acid);
+  text-shadow: 0 0 14px rgba(0, 255, 156, 0.8);
+}
+
+@keyframes marq {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---------- education + awards ---------- */
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.1rem;
+  margin-top: 1.1rem;
+}
+@media (max-width: 780px) {
+  .two-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mini {
+  padding: 0.9rem 1.1rem;
+  border-left: 2px solid var(--line);
+  transition: border-color 0.3s, padding-left 0.3s var(--ease), background 0.3s;
+}
+.mini:hover {
+  border-left-color: var(--acid);
+  padding-left: 1.4rem;
+  background: rgba(0, 255, 156, 0.04);
+}
+.mini h4 {
+  font-size: 0.94rem;
+  font-weight: 600;
+}
+.mini p {
+  font-size: 0.8rem;
+  color: var(--ink-faint);
+}
+.mini .yr {
+  font: 500 0.7rem/1.6 var(--mono);
+  color: var(--acid);
+}
+
+/* ==================================================================
+   CONTACT + FOOTER
+   ================================================================== */
+
+.contact {
+  text-align: center;
+}
+.contact h2 {
+  margin-bottom: 1.2rem;
+  font-size: clamp(2rem, 7vw, 4.6rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+.contact p {
+  max-width: 52ch;
+  margin: 0 auto 2.2rem;
+  color: var(--ink-dim);
+}
+
+.mail {
+  display: inline-block;
+  padding-bottom: 6px;
+  font: 600 clamp(0.95rem, 2.4vw, 1.5rem)/1.3 var(--mono);
+  color: var(--acid);
+  word-break: break-all;
+  background-image: linear-gradient(var(--acid), var(--acid));
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size 0.5s var(--ease), text-shadow 0.3s;
+}
+.mail:hover {
+  background-size: 100% 1px;
+  text-shadow: 0 0 22px rgba(0, 255, 156, 0.7);
+}
+
+.socials {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 2.4rem;
+}
+.social {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.1rem;
+  font: 500 0.74rem/1 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  transition: color 0.3s, border-color 0.3s, transform 0.3s var(--ease), box-shadow 0.3s;
+}
+.social:hover {
+  color: var(--acid);
+  border-color: var(--acid);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px -12px rgba(0, 255, 156, 0.8);
+}
+
+footer {
+  padding: 2.4rem 0 4.5rem;
+  border-top: 1px solid var(--line);
+  text-align: center;
+  font: 400 0.7rem/1.9 var(--mono);
+  color: var(--ink-faint);
+}
+footer b {
+  color: var(--acid);
+  font-weight: 600;
+}
+
+/* ---------- skills: tier labels + intro notes ---------- */
+
+.lead-note {
+  max-width: 62ch;
+  margin: -1.4rem 0 2rem;
+  font-size: 0.92rem;
+  color: var(--ink-dim);
+}
+
+.sub-head {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin: 3.4rem 0 1.4rem;
+}
+.sub-head .idx {
+  font: 700 0.72rem/1 var(--mono);
+  color: var(--acid);
+  opacity: 0.7;
+}
+.sub-head h3 {
+  font: 600 0.82rem/1 var(--mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.sub-head .rule {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--line), transparent);
+}
+
+.mini-head {
+  margin-bottom: 0.6rem;
+  font: 600 0.72rem/1 var(--mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--acid);
+}

@@ -1,0 +1,200 @@
+/* ==================================================================
+   LIGHT THEME
+   Everything the rest of the CSS reads through a token flips here. The
+   second half overrides the background layers, which bake in their own
+   colours — a starfield and a matrix rain only read as "white glyphs on
+   black", so on light they are replaced rather than recoloured.
+   ================================================================== */
+
+:root[data-theme='light'] {
+  color-scheme: light;
+
+  /* surfaces — cool paper, not pure white */
+  --bg: #eef4f0;
+  --bg-2: #e4ece7;
+  --bg-deep: #dde7e1;
+  --glass: rgba(255, 255, 255, 0.66);
+  --surface: rgba(255, 255, 255, 0.82);
+  --surface-2: rgba(255, 255, 255, 0.94);
+  --surface-nav: rgba(238, 244, 240, 0.78);
+  --overlay: rgba(222, 232, 226, 0.9);
+  --on-acid: #ffffff;
+
+  /* ink */
+  --ink: #06231a;
+  --ink-dim: #3c5a4d;
+  --ink-faint: #567063;
+
+  /* accents — darkened so they stay legible on paper */
+  --acid: #00784f;
+  --acid-2: #0a6f8f;
+  --violet: #6340c4;
+  --amber: #8a5c00;
+  --hot: #c4134f;
+  --line: rgba(0, 120, 79, 0.2);
+}
+
+/* ---------- background layers ---------- */
+
+:root[data-theme='light'] .fx-nebula {
+  background:
+    radial-gradient(60% 50% at 18% 12%, rgba(0, 170, 115, 0.14), transparent 70%),
+    radial-gradient(55% 45% at 82% 28%, rgba(20, 140, 180, 0.12), transparent 70%),
+    radial-gradient(70% 55% at 50% 92%, rgba(120, 90, 220, 0.12), transparent 70%),
+    radial-gradient(40% 40% at 92% 78%, rgba(220, 60, 120, 0.07), transparent 70%),
+    var(--bg);
+}
+
+/* white specks are invisible on paper */
+:root[data-theme='light'] .fx-stars,
+:root[data-theme='light'] .fx-matrix {
+  display: none;
+}
+
+:root[data-theme='light'] .fx-aurora {
+  opacity: 0.4;
+}
+:root[data-theme='light'] .fx-aurora i:nth-child(1) {
+  background: radial-gradient(circle closest-side, rgba(0, 170, 115, 0.3), rgba(0, 170, 115, 0.08) 45%, transparent 75%);
+}
+:root[data-theme='light'] .fx-aurora i:nth-child(2) {
+  background: radial-gradient(circle closest-side, rgba(20, 140, 180, 0.24), rgba(20, 140, 180, 0.07) 45%, transparent 75%);
+}
+:root[data-theme='light'] .fx-aurora i:nth-child(3) {
+  background: radial-gradient(circle closest-side, rgba(120, 90, 220, 0.2), rgba(120, 90, 220, 0.06) 45%, transparent 75%);
+}
+
+:root[data-theme='light'] .fx-rings i {
+  border-color: rgba(0, 120, 79, 0.18);
+}
+:root[data-theme='light'] .fx-rings i:nth-child(2) {
+  border-color: rgba(10, 111, 143, 0.16);
+}
+:root[data-theme='light'] .fx-rings i:nth-child(3) {
+  border-color: rgba(99, 64, 196, 0.14);
+}
+:root[data-theme='light'] .fx-rings i:nth-child(1)::after {
+  box-shadow: 0 0 12px 2px rgba(0, 120, 79, 0.5);
+}
+:root[data-theme='light'] .fx-rings .sweep {
+  background: conic-gradient(from 0deg, transparent 0 78%, rgba(0, 120, 79, 0.1) 92%, transparent 100%);
+}
+
+/* the CRT is a dark-tube effect: on light it becomes a soft paper vignette */
+:root[data-theme='light'] .fx-crt {
+  background:
+    repeating-linear-gradient(to bottom, rgba(0, 60, 40, 0.035) 0 1px, transparent 1px 3px),
+    radial-gradient(ellipse 85% 72% at 50% 45%, transparent 52%, rgba(0, 50, 34, 0.14) 100%);
+  opacity: 0.9;
+}
+:root[data-theme='light'] .fx-crt::after {
+  background: linear-gradient(to bottom, transparent, rgba(0, 120, 79, 0.04), transparent);
+}
+
+:root[data-theme='light'] .fx-grain {
+  opacity: 0.035;
+}
+
+:root[data-theme='light'] .fx-spot i {
+  background:
+    radial-gradient(circle closest-side, rgba(0, 120, 79, 0.08), transparent 46%),
+    radial-gradient(circle closest-side, rgba(10, 111, 143, 0.04), transparent 78%);
+}
+
+:root[data-theme='light'] .fx-beams i {
+  opacity: 0.22;
+}
+
+/* ---------- component tweaks ---------- */
+
+/* the holo border reads as neon on dark; on light it needs ink, not glow */
+:root[data-theme='light'] .card::before {
+  background: conic-gradient(
+    from var(--spin, 0deg),
+    rgba(0, 120, 79, 0.55),
+    rgba(10, 111, 143, 0.25),
+    rgba(99, 64, 196, 0.4),
+    rgba(0, 120, 79, 0.08),
+    rgba(0, 120, 79, 0.55)
+  );
+  opacity: 0.5;
+}
+:root[data-theme='light'] .card::after {
+  background: radial-gradient(
+    280px circle at var(--px, 50%) var(--py, 50%),
+    rgba(0, 120, 79, 0.1),
+    transparent 60%
+  );
+}
+:root[data-theme='light'] .card {
+  box-shadow: 0 14px 40px -28px rgba(0, 50, 34, 0.5);
+}
+:root[data-theme='light'] .card:hover {
+  box-shadow:
+    0 20px 50px -26px rgba(0, 120, 79, 0.35),
+    0 0 0 1px rgba(0, 120, 79, 0.16);
+}
+:root[data-theme='light'] .card .sweep {
+  background: linear-gradient(
+    110deg,
+    transparent 35%,
+    rgba(0, 120, 79, 0.05) 48%,
+    rgba(0, 120, 79, 0.09) 52%,
+    transparent 66%
+  );
+}
+
+:root[data-theme='light'] .term,
+:root[data-theme='light'] .stat,
+:root[data-theme='light'] .links {
+  box-shadow: 0 14px 40px -30px rgba(0, 50, 34, 0.5);
+}
+:root[data-theme='light'] .term::after {
+  background: repeating-linear-gradient(to bottom, rgba(0, 120, 79, 0.03) 0 1px, transparent 1px 4px);
+}
+
+/* glows that only work against black */
+:root[data-theme='light'] .rotator,
+:root[data-theme='light'] .head .idx,
+:root[data-theme='light'] .glow,
+:root[data-theme='light'] .marquee span:hover,
+:root[data-theme='light'] .mail:hover {
+  text-shadow: none;
+}
+:root[data-theme='light'] .caret,
+:root[data-theme='light'] .badge-now,
+:root[data-theme='light'] .cursor-dot {
+  box-shadow: none;
+}
+:root[data-theme='light'] .progress {
+  box-shadow: 0 0 10px rgba(0, 120, 79, 0.4);
+}
+:root[data-theme='light'] .hero-core .nucleus {
+  background: radial-gradient(circle at 35% 30%, #fff, var(--acid) 42%, #004e34 74%, transparent 80%);
+  box-shadow:
+    0 0 40px 6px rgba(0, 120, 79, 0.25),
+    inset 0 0 18px rgba(255, 255, 255, 0.5);
+}
+:root[data-theme='light'] .hero-core .ring::after,
+:root[data-theme='light'] .job.now::before {
+  box-shadow: 0 0 10px 1px rgba(0, 120, 79, 0.4);
+}
+
+/* the holo title gradient starts on #fff — invisible on paper */
+:root[data-theme='light'] .holo {
+  background: linear-gradient(
+    92deg,
+    var(--ink) 0%,
+    var(--acid) 22%,
+    var(--acid-2) 44%,
+    var(--violet) 66%,
+    var(--ink) 88%
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+:root[data-theme='light'] .boot {
+  color: var(--acid);
+}

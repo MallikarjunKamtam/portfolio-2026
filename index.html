@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mallikarjun Kamtam — Senior Software Engineer</title>
+    <meta name="description" content="Software engineer with 7+ years designing and shipping production systems end to end — system design, APIs, data modelling and the interfaces on top. Backend-leaning full-stack." />
+    <meta name="author" content="Mallikarjun Kamtam" />
+    <meta name="theme-color" content="#04110b" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#eef4f0" media="(prefers-color-scheme: light)" />
+    <script>
+      // resolve the theme before first paint — otherwise a light-mode visitor
+      // gets a frame of black while React boots
+      try {
+        var t = localStorage.getItem('theme')
+        if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+        document.documentElement.dataset.theme = t
+      } catch (e) {
+        document.documentElement.dataset.theme = 'dark'
+      }
+    </script>
+    <meta property="og:title" content="Mallikarjun Kamtam — Senior Software Engineer" />
+    <meta property="og:description" content="7+ years designing and shipping production systems end to end." />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%2300ff9c'>%E2%9D%AF</text></svg>" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

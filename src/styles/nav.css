@@ -1,0 +1,214 @@
+/* Top nav: glass bar, numbered links, active glow, mobile dock. */
+
+.nav {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem clamp(1.4rem, 4vw, 2.6rem);
+  border-bottom: 1px solid transparent;
+  transition: background 0.4s, backdrop-filter 0.4s, border-color 0.4s;
+}
+
+.scrolled .nav {
+  background: var(--surface-nav);
+  backdrop-filter: blur(16px) saturate(160%);
+  border-bottom-color: var(--line);
+}
+
+/* ---------- brand ---------- */
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font: 700 0.9rem/1 var(--mono);
+  letter-spacing: 0.04em;
+}
+.brand b {
+  color: var(--acid);
+}
+.brand .pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--acid);
+  box-shadow: 0 0 0 0 rgba(0, 255, 156, 0.7);
+  animation: ping 2s infinite;
+}
+
+@keyframes ping {
+  70% {
+    box-shadow: 0 0 0 12px rgba(0, 255, 156, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 255, 156, 0);
+  }
+}
+
+/* ---------- links ---------- */
+
+.links {
+  display: flex;
+  gap: 0.15rem;
+  counter-reset: nav;
+}
+.links a {
+  position: relative;
+  padding: 0.42rem 0.78rem;
+  font: 500 0.76rem/1 var(--mono);
+  letter-spacing: 0.06em;
+  color: var(--ink-dim);
+  border-radius: 8px;
+  transition: color 0.25s, background 0.25s;
+}
+.links a::before {
+  content: '0' counter(nav) '.';
+  counter-increment: nav;
+  margin-right: 0.35rem;
+  font-size: 0.72em;
+  color: var(--acid);
+  opacity: 0.55;
+}
+.links a:hover {
+  color: var(--ink);
+  background: rgba(0, 255, 156, 0.07);
+}
+.links a.on {
+  color: var(--acid);
+  background: rgba(0, 255, 156, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(0, 255, 156, 0.25);
+}
+.links a.on::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -3px;
+  width: 18px;
+  height: 2px;
+  translate: -50% 0;
+  background: var(--acid);
+  border-radius: 2px;
+  box-shadow: 0 0 12px var(--acid);
+}
+
+@media (max-width: 900px) {
+  .links {
+    position: fixed;
+    inset: auto 50% 0.9rem auto;
+    translate: 50% 0;
+    gap: 0.1rem;
+    padding: 0.35rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface-nav);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 10px 40px -14px rgba(0, 0, 0, 0.9);
+  }
+  .links a {
+    padding: 0.4rem 0.55rem;
+    font-size: 0.66rem;
+  }
+  .links a::before {
+    display: none;
+  }
+}
+
+/* ---------- nav CTA ---------- */
+
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.95rem;
+  font: 600 0.74rem/1 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--acid);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(0, 255, 156, 0.06);
+  transition: background 0.3s, box-shadow 0.3s, transform 0.3s var(--ease);
+}
+.nav-cta:hover {
+  background: rgba(0, 255, 156, 0.14);
+  box-shadow: 0 0 26px rgba(0, 255, 156, 0.32);
+  transform: translateY(-1px);
+}
+
+/* ---------- theme toggle ---------- */
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.theme-btn {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: rgba(0, 255, 156, 0.06);
+  transition: border-color 0.3s, background 0.3s, transform 0.3s var(--ease);
+}
+.theme-btn:hover {
+  border-color: var(--acid);
+  background: rgba(0, 255, 156, 0.14);
+  transform: rotate(-25deg);
+}
+
+/* crescent moon: a disc with a bite taken out of it by an inset shadow */
+.theme-btn .orb {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  color: var(--acid);
+  background: currentColor;
+  border-radius: 50%;
+  box-shadow: inset 5px -5px 0 0 var(--bg);
+  transition:
+    box-shadow 0.45s var(--ease),
+    transform 0.45s var(--ease),
+    background 0.45s;
+}
+
+/* sun rays — eight dots, one box-shadow list, hidden until light mode */
+.theme-btn .orb::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 2.5px;
+  height: 2.5px;
+  margin: -1.25px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0;
+  box-shadow:
+    0 -9px, 0 9px, -9px 0, 9px 0,
+    -6.4px -6.4px, 6.4px 6.4px, -6.4px 6.4px, 6.4px -6.4px;
+  transition: opacity 0.3s 0.12s;
+}
+
+:root[data-theme='light'] .theme-btn .orb {
+  /* fill the bite back in, shrink to a core, reveal the rays */
+  box-shadow: inset 0 0 0 0 var(--bg);
+  transform: scale(0.62);
+}
+:root[data-theme='light'] .theme-btn .orb::after {
+  opacity: 1;
+  transform: scale(1.6);
+}
+:root[data-theme='light'] .theme-btn {
+  background: rgba(0, 120, 79, 0.07);
+}
+:root[data-theme='light'] .theme-btn:hover {
+  background: rgba(0, 120, 79, 0.14);
+  transform: rotate(25deg);
+}

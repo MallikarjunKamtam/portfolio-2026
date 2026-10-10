@@ -1,0 +1,150 @@
+/* Shell, container, section rhythm, section headings, reveal, HUD frame. */
+
+.shell {
+  position: relative;
+  z-index: 2;
+}
+
+.wrap {
+  width: min(1140px, 100% - 2.5rem);
+  margin-inline: auto;
+}
+
+section {
+  position: relative;
+  padding: clamp(5rem, 11vh, 9rem) 0;
+  scroll-margin-top: 92px;
+  /* ponytail: `contain: layout style` only — NOT content-visibility: auto.
+     content-visibility would skip offscreen sections entirely (a big win)
+     but it estimates their height until first paint, which makes anchor
+     jumps and the scroll-spy land in the wrong place. Not worth it now that
+     nothing expensive animates offscreen. */
+  contain: layout style;
+}
+
+/* ---------- scroll progress rail ---------- */
+
+.progress {
+  position: fixed;
+  inset: 0 0 auto;
+  height: 2px;
+  z-index: 60;
+  transform-origin: 0 50%;
+  transform: scaleX(var(--scroll));
+  background: linear-gradient(90deg, var(--acid), var(--acid-2) 55%, var(--violet));
+  box-shadow: 0 0 16px rgba(0, 255, 156, 0.75);
+}
+
+/* ---------- fixed HUD frame: corner brackets + side readouts ------ */
+
+.hud {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  padding: 14px;
+}
+.hud b {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border: 1px solid rgba(0, 255, 156, 0.35);
+}
+.hud b:nth-child(1) { top: 14px;    left: 14px;    border-right: 0; border-bottom: 0; }
+.hud b:nth-child(2) { top: 14px;    right: 14px;   border-left: 0;  border-bottom: 0; }
+.hud b:nth-child(3) { bottom: 14px; left: 14px;    border-right: 0; border-top: 0; }
+.hud b:nth-child(4) { bottom: 14px; right: 14px;   border-left: 0;  border-top: 0; }
+
+.hud .rail {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  translate: 0 -50%;
+  writing-mode: vertical-rl;
+  font: 500 0.6rem/1 var(--mono);
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba(0, 255, 156, 0.3);
+}
+.hud .rail.r {
+  left: auto;
+  right: 18px;
+  rotate: 180deg;
+}
+@media (max-width: 1000px) {
+  .hud .rail {
+    display: none;
+  }
+}
+
+/* ---------- section heading ---------- */
+
+.head {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 2.8rem;
+}
+.head .idx {
+  font: 700 0.78rem/1 var(--mono);
+  color: var(--acid);
+  opacity: 0.75;
+  text-shadow: 0 0 14px rgba(0, 255, 156, 0.6);
+}
+.head h2 {
+  font-size: clamp(1.7rem, 4.2vw, 2.9rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+.head .rule {
+  position: relative;
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--acid), transparent);
+  opacity: 0.4;
+  overflow: hidden;
+}
+/* a light packet runs along the rule */
+.head .rule::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -30%;
+  width: 30%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--acid), transparent);
+  will-change: transform;
+  animation: packet 3.4s var(--ease) infinite;
+}
+@keyframes packet {
+  to {
+    transform: translateX(470%);
+  }
+}
+
+/* ---------- reveal on scroll ---------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.85s var(--ease),
+    transform 0.85s var(--ease);
+  transition-delay: var(--d, 0ms);
+}
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+/* variants */
+.reveal.from-l {
+  transform: translateX(-34px);
+}
+.reveal.from-r {
+  transform: translateX(34px);
+}
+.reveal.zoom {
+  transform: scale(0.94);
+}

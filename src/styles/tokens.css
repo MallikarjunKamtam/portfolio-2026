@@ -1,0 +1,44 @@
+/* Design tokens — every colour, font and easing lives here and nowhere else. */
+
+:root {
+  /* surfaces */
+  --bg: #04110b;
+  --bg-2: #061a11;
+  --bg-deep: #020a06;
+  --glass: rgba(6, 26, 17, 0.55);
+  --surface: rgba(7, 27, 18, 0.78);
+  --surface-2: rgba(2, 10, 6, 0.9);
+  --surface-nav: rgba(4, 17, 11, 0.7);
+  --overlay: rgba(2, 8, 5, 0.88);
+  /* text that sits ON an --acid fill */
+  --on-acid: #02160e;
+
+  /* ink */
+  --ink: #d9fff0;
+  --ink-dim: #7ea894;
+  --ink-faint: #4a6b5c;
+
+  /* accents */
+  --acid: #00ff9c;
+  --acid-2: #4df8ff;
+  --violet: #a87bff;
+  --amber: #ffcc66;
+  --hot: #ff2d6f;
+  --line: rgba(0, 255, 156, 0.14);
+
+  /* type */
+  --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+
+  /* live values written by JS (see src/fx) */
+  --mx: 50vw;
+  --my: 50vh;
+  --mxp: 0.5;
+  --myp: 0.5;
+  --scroll: 0;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --rad: 14px;
+
+  color-scheme: dark;
+}
